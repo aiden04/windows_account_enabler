@@ -1,6 +1,5 @@
 @echo off
 Title Warning!
-color 0a
 cls
 goto Elevation
 
@@ -104,6 +103,7 @@ goto Completed
 :Completed
 title Completed Enabling
 cls
+echo.
 echo ----------------------------------Completed----------------------------------
 echo.
 net user %variable%
@@ -119,6 +119,7 @@ echo.
 echo.
 echo.
 echo  - If you would like to restart please enter "Restart", if not please enter "Exit"
+echo  - If you would like to change the account password, please enter "Password".
 echo.
 set/p EXIT_KEY=Please enter here: 
 echo.
@@ -126,6 +127,8 @@ if %EXIT_KEY%==Restart goto Enable
 if %EXIT_KEY%==Exit goto Exit 
 if %EXIT_KEY%==restart goto Enable
 if %EXIT_KEY%==exit goto Exit
+if %EXIT_KEY%==Password goto Password
+if %EXIT_KEY%==password goto Password
 cls
 echo.
 echo.
@@ -157,16 +160,17 @@ net user
 echo.
 echo  - please select from the list of users.
 echo.
-set/p Name= Enter Username Here: 
-net user %Name% /Active:no
+set/p variable= Enter Username Here: 
+net user %variabke% /Active:no
 goto Completed_Disable
 
 :Completed_Disable
 Title Completed Disable
 cls
+echo.
 echo ----------------------------------Completed----------------------------------
 echo.
-net user %Name%
+net user %variable%
 echo.
 echo.
 echo.
@@ -200,6 +204,80 @@ echo.
 pause>nul|set /p=  - Incorrect Input, Please press any key to go back...
 goto Completed_Disable
 
+:Password
+Title Password Changing In Progress
+cls
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo ----------------------------------Password Changer----------------------------------
+echo.
+for /F %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
+set color_white=%ESC%[37m
+set color_black=%ESC%[30m
+set/p password= Please enter the password you want here: %color_black%
+echo %color_white%
+net user %variable% %password%
+echo.
+goto Password_Complete
+pause
+
+:Password_Complete
+echo.
+echo.
+echo.
+echo.
+echo.
+echo  - The text "The command completed successfully." should have appeared.
+echo  - If not, Please enter Restart
+echo  - If it has completed successfully, please enter "Exit".
+echo  - If you would like to see your password please enter "Show".
+echo. 
+set/p leave_code= Please enter response here: 
+if %leave_code%==restart goto Enable
+if %leave_code%==Restart goto Enable
+if %leave_code%==exit goto EXIT
+if %leave_code%==Exit goto EXIT
+if %leave_code%==Show goto show_passowrd
+if %leave_code%==show goto show_password
+cls
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+pause>nul|set /p=  - Incorrect Input, Please press any key to go back...
+cls
+goto Password_Complete
+
+:show_password
+cls
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo ----------------------------------Show Password----------------------------------
+echo.
+echo.
+echo.
+echo.
+echo  - DO NOT SHARE THIS PASSWORD WITH ANYONE!!!
+echo.
+echo  - The password for %variable% is "%password%".
+echo.
+pause>nul|set /p=  - Press any key to continue when you have finished...
+goto EXIT
+
 :Disagree
 title Disagree
 cls
@@ -229,6 +307,6 @@ echo.
 echo.
 echo ----------------------------------Exit----------------------------------
 echo.
-echo Command Script succsefully completed on account %username% at %time% on %date%.
+echo Command Script has successfully completed on account "%username%" at %time% on %date%.
 echo.
 pause>nul|set /p= Press any key to exit...
