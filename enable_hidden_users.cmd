@@ -17,19 +17,19 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Warning----------------------------------
+echo ---------------------------------------------------------Warning--------------------------------------------------------
 echo.
 echo.
 echo.
 echo  - Warning, this batch file will edit your computer files. I am not liable
-echo  - for any corruption that happens, if you understand and agree enter yes,
-echo  - if not enter no.
+echo  - for any corruption that happens, if you understand then please enter 
+echo  - "Agree", if not, please enter "Disagree".
 echo.
 set/p answer=Enter yes or no here: 
-if %answer%==yes goto Choice
-if %answer%==no goto Disagree
-if %answer%==Yes goto Choice
-if %answer%==No goto Disagree
+if %answer%==Agree goto Choice
+if %answer%==Disagree goto Disagree
+if %answer%==agree goto Choice
+if %answer%==disagree goto Disagree
 cls
 echo.
 echo.
@@ -53,7 +53,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Enable or Disable----------------------------------
+echo --------------------------------------------------Enable or Disable-----------------------------------------------------
 echo.
 echo.
 echo.
@@ -88,7 +88,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------User----------------------------------
+echo ----------------------------------------------------------User----------------------------------------------------------
 echo.
 echo  - A list of users will be listed.
 echo.
@@ -104,7 +104,7 @@ goto Completed
 title Completed Enabling
 cls
 echo.
-echo ----------------------------------Completed----------------------------------
+echo ------------------------------------------------------Completed--------------------------------------------------------
 echo.
 net user %variable%
 echo.
@@ -152,7 +152,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------User----------------------------------
+echo ----------------------------------------------------------User----------------------------------------------------------
 echo.
 echo  - A list of users will be listed.
 echo.
@@ -161,14 +161,14 @@ echo.
 echo  - please select from the list of users.
 echo.
 set/p variable= Enter Username Here: 
-net user %variabke% /Active:no
+net user %variable% /Active:no
 goto Completed_Disable
 
 :Completed_Disable
 Title Completed Disable
 cls
 echo.
-echo ----------------------------------Completed----------------------------------
+echo -------------------------------------------------------Completed--------------------------------------------------------
 echo.
 net user %variable%
 echo.
@@ -213,7 +213,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Password Changer----------------------------------
+echo ---------------------------------------------------Password Changer-----------------------------------------------------
 echo.
 for /F %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
 set color_white=%ESC%[37m
@@ -266,7 +266,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Show Password----------------------------------
+echo -----------------------------------------------------Show Password-------------------------------------------------------
 echo.
 echo.
 echo.
@@ -287,7 +287,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Diagree----------------------------------
+echo --------------------------------------------------------Diagree----------------------------------------------------------
 echo.
 echo  - You have Disagreed, you cannot continue.
 echo.
@@ -305,7 +305,7 @@ echo.
 echo.
 echo.
 echo.
-echo ----------------------------------Exit----------------------------------
+echo ----------------------------------------------------------Exit-----------------------------------------------------------
 echo.
 echo Command Script has successfully completed on account "%username%" at %time% on %date%.
 echo.
